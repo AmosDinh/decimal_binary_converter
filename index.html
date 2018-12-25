@@ -1,0 +1,56 @@
+<html>
+    <head>
+    <title>Dezimal zu binär</title>
+</head>
+<body>
+    <input id="decimal" type="number" placeholder="decimal">
+    <input id="binary" type="text" placeholder="binary">
+    <button id="btn">change</button>
+    <script>
+        let lastFocus = "none";
+        document.getElementById('decimal').onclick = function(){
+            lastFocus = "decimal"
+        }
+        document.getElementById('binary').onclick = function(){
+            lastFocus = "binary"
+          
+        }
+        document.getElementById('btn').onclick = function (){
+           
+            if(lastFocus == "decimal"){
+                let dValue =  document.getElementById('decimal').value
+                let bOutput = ""
+            
+               changer(dValue)
+               function changer(num){
+                   if(num <= 0) return
+                   else{
+                   bOutput = addInFront(bOutput,num%2)
+                   let newNum = (num-num%2)/2
+                   changer(newNum)
+                   }
+
+               }
+               document.getElementById('binary').value = bOutput
+
+            }else{
+                let bValue =  document.getElementById('binary').value
+                let dOutput = 0
+                for(i = 0;i< bValue.length;i++){
+                    let index = bValue.length-i-1
+                    let binarySwitch = parseInt(bValue[index])
+                    dOutput += Math.pow(2,i)*binarySwitch
+                }
+                document.getElementById('decimal').value = dOutput
+            }
+        }
+        function addInFront(bOutput,numChar){
+            let newOutput = numChar+""
+            for(i=0;i<bOutput.length;i++){
+                newOutput+=bOutput[i]
+            }
+            return newOutput
+        }
+    </script>
+</body>
+</html>
